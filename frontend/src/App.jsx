@@ -1,17 +1,7 @@
-import { css } from "@emotion/react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Home } from "./pages/Home";
-import { Matching } from "./pages/Matching";
+import { Routes } from "./Routes";
 
 function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route index element={<Home />} />
-        <Route path={"/matching"} element={<Matching />} />
-      </Routes>
-    </BrowserRouter>
-  );
+  return <Routes />;
 }
 
 export default App;
