@@ -60,7 +60,6 @@ export const Matching = () => {
           direction="row"
           alignItems="center"
           justifyContent="center"
-          // spacing={-2}
           sx={{
             width: "65%",
             mx: "auto",
@@ -71,7 +70,7 @@ export const Matching = () => {
             <Avatar sx={{ width: 50, height: 50 }}>{user?.name[0]}</Avatar>
           </Box>
           <Box flex={6}>
-            <Typography variant="h6" color="white" fontWeight="extra-bold">
+            <Typography variant="h6" color="white" fontWeight="bold">
               {user?.name}
             </Typography>
           </Box>

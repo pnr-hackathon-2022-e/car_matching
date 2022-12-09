@@ -11,6 +11,8 @@ import {
 import { useCallback, useContext, useEffect, useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { setUserContext, userContext } from "../contexts/UserContext";
+import BasicInfo from "../assets/home/basic_info.png";
+import SNS from "../assets/home/sns.png";
 
 export const UserEditModal = ({ open, setOpen }) => {
   const user = useContext(userContext);
@@ -50,7 +52,14 @@ export const UserEditModal = ({ open, setOpen }) => {
     <Dialog open={open} onClose={handleClose} fullWidth>
       <DialogContent>
         <Stack spacing={2}>
-          <Typography variant="subtitle1">基本情報</Typography>
+          <Typography variant="subtitle1">
+            <img
+              src={BasicInfo}
+              style={{
+                width: "30%",
+              }}
+            />
+          </Typography>
           <Controller
             name="name"
             control={control}
@@ -83,7 +92,14 @@ export const UserEditModal = ({ open, setOpen }) => {
             )}
           /> */}
           <Divider />
-          <Typography variant="subtitle1">SNS</Typography>
+          <Typography variant="subtitle1">
+            <img
+              src={SNS}
+              style={{
+                width: "30%",
+              }}
+            />
+          </Typography>
           <Controller
             name="sns.twitter"
             control={control}
