@@ -1,7 +1,12 @@
+import { Container } from "@mui/material";
 import { Routes } from "./Routes";
 
 function App() {
-  return <Routes />;
+  return (
+    <Container maxWidth="xs">
+      <Routes />
+    </Container>
+  );
 }
 
 export default App;
