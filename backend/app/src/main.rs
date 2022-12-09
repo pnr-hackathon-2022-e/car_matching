@@ -1,19 +1,19 @@
-use actix_web::{get, web, App, HttpServer, Responder};
+use actix_web::{get, App, HttpServer, Responder};
 use serde::{Serialize, Deserialize};
 
 
 #[derive(Serialize, Deserialize, Debug)]
-struct SNSlinks {
-    twitter: string,
-    instagram: string,
-    line: string
+struct SNSLinks {
+    twitter: String,
+    instagram: String,
+    line: String
 }
 
 #[derive(Serialize, Deserialize, Debug)]
 struct User {
-    id: string,
-    name: string,
-    sns: snsLinks
+    id: String,
+    name: String,
+    sns: SNSLinks
 }
 
 
