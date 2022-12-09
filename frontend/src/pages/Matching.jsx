@@ -9,13 +9,17 @@ import NextButton from "../assets/matching/next_button.png";
 import EndButton from "../assets/matching/end_button.png";
 import AddFriendButton from "../assets/matching/add_friend_button.png";
 import { userContext } from "../contexts/UserContext";
+import { useNavigate } from "react-router-dom";
 
 export const Matching = () => {
   const user = useContext(userContext);
+  const navigate = useNavigate();
 
   const handleClickNext = useCallback(() => {}, []);
 
-  const handleClickEnd = useCallback(() => {}, []);
+  const handleClickEnd = useCallback(() => {
+    navigate("/");
+  }, []);
   return (
     <Container
       maxWidth="xs"
