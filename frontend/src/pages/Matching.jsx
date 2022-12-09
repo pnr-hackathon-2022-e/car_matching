@@ -22,6 +22,7 @@ export const Matching = () => {
       sx={{
         px: 0,
         position: "relative",
+        overflow: "hidden",
         bgcolor: "#30dcec",
         height: "100vh",
         width: "100%",
@@ -104,12 +105,22 @@ export const Matching = () => {
         />
       </Stack>
       <img
-        src={Road}
+        src={Cloud2}
         style={{
           position: "absolute",
+          bottom: 50,
+          right: -50,
+          width: 300,
+        }}
+      />
+
+      <img
+        src={Road}
+        style={{
+          width: "100%",
+          position: "fixed",
           bottom: 0,
           left: 0,
-          width: "100%",
         }}
       />
     </Container>
