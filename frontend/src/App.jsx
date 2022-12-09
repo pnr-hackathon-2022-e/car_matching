@@ -1,13 +1,11 @@
-import { Container } from "@mui/material";
 import { UserProvider } from "./contexts/UserContext";
 import { Routes } from "./Routes";
+import "./App.css";
 
 function App() {
   return (
     <UserProvider>
-      <Container maxWidth="xs">
-        <Routes />
-      </Container>
+      <Routes />
     </UserProvider>
   );
 }

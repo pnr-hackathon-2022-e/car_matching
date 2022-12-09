@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Container } from "@mui/material";
 import { useCallback, useState } from "react";
 import { UserEditModal } from "../components/UserEditModal";
 
@@ -10,9 +10,9 @@ export const Home = () => {
   }, [open]);
 
   return (
-    <>
+    <Container maxWidth="xs">
       <Button onClick={onClickEditButton}>編集する</Button>
       <UserEditModal open={open} setOpen={setOpen} />
-    </>
+    </Container>
   );
 };
