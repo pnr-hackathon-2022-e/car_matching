@@ -1,0 +1,9 @@
+html,
+body {
+  overflow: hidden;
+  position: relative;
+}
+
+body {
+  margin: 0;
+}
