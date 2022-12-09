@@ -36,14 +36,15 @@ export const UserEditModal = ({ open, setOpen }) => {
     reset({ ...defaultValues });
   }, [user]);
 
-  const onSubmit = useCallback((input) => {
-    setUser(input);
-  }, []);
-
   const handleClose = useCallback(() => {
     setOpen(false);
     reset();
   }, [reset]);
+
+  const onSubmit = useCallback((input) => {
+    setUser(input);
+    handleClose();
+  }, []);
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth>
