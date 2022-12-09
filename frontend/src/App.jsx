@@ -7,7 +7,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path={"/"} element={<Home />} />
+        <Route index element={<Home />} />
         <Route path={"/matching"} element={<Matching />} />
       </Routes>
     </BrowserRouter>
