@@ -92,18 +92,18 @@ export const Matching = () => {
           }}
         />
       </Stack>
-      <Stack direction="row" pt={10}>
+      <Stack direction="row" pt={10} spacing={2} justifyContent="center">
         <img
           src={NextButton}
           style={{
-            width: "50%",
+            width: "45%",
           }}
           onClick={handleClickNext}
         />
         <img
           src={EndButton}
           style={{
-            width: "50%",
+            width: "45%",
           }}
           onClick={handleClickEnd}
         />
