@@ -26,7 +26,7 @@ export const Home = () => {
     setIsMatching(!isMatching);
     await axios
       .post(
-        "http://34.125.227.230:8000/caller1",
+        "https://34.125.227.230:8000/caller1/",
         {
           name: "Title",
           pass: "Body",
@@ -38,8 +38,8 @@ export const Home = () => {
           },
         }
       )
-      .then((res) => console.log(res))
-      .catch((e) => console.log(e));
+      .then((res) => console.log(res));
+    // .catch((e) => console.log(e));
     await axios
       .get("https://api.sampleapis.com/beers/ale")
       .then((res) => console.log(res))
