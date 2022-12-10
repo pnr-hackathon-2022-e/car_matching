@@ -1,30 +1,25 @@
-use actix_web::{get, App, HttpServer, Responder};
+use actix_web::{get, post, web, App, HttpServer, Responder, HttpResponse};
 use serde::{Serialize, Deserialize};
 
-
 #[derive(Serialize, Deserialize, Debug)]
-struct SNSLinks {
-    twitter: String,
-    instagram: String,
-    line: String
-}
-
-#[derive(Serialize, Deserialize, Debug)]
-struct User {
-    id: String,
+struct Session {
     name: String,
-    sns: SNSLinks
+    pass: String
 }
 
+#[post("/receive")]
+async fn receive(rec: web::Json<Session>) -> String {
+    format!("{}", rec.pass)
+}
 
-#[get("/hello")]
-async fn index() -> impl Responder {
-    format!("Hello")
+#[post("/call")]
+async fn call(rec: web::Json<Session>) -> String {
+    format!("{}", rec.pass)
 }
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    HttpServer::new(|| App::new().service(index))
+    HttpServer::new(|| App::new().service(call).service(receive))
         .bind("127.0.0.1:8000")?
         .run()
         .await
