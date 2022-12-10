@@ -1,5 +1,5 @@
 import { Avatar, Box, Container, Stack, Typography } from "@mui/material";
-import { useCallback, useContext } from "react";
+import { useCallback, useContext, useState } from "react";
 import Cloud1 from "../assets/matching/cloud1.png";
 import Cloud2 from "../assets/matching/cloud2.png";
 import Cloud3 from "../assets/matching/cloud3.png";
@@ -10,16 +10,36 @@ import EndButton from "../assets/matching/end_button.png";
 import AddFriendButton from "../assets/matching/add_friend_button.png";
 import { userContext } from "../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
+import { friendsContext, setFriendsContext } from "../contexts/FriendsContext";
 
 export const Matching = () => {
   const user = useContext(userContext);
+  const friends = useContext(friendsContext);
+  const setFriends = useContext(setFriendsContext);
   const navigate = useNavigate();
+  const [isDisabledAddFriendButton, setIsDisabledAddFriendButton] =
+    useState(false);
 
   const handleClickNext = useCallback(() => {}, []);
 
   const handleClickEnd = useCallback(() => {
     navigate("/");
   }, []);
+
+  const handleClickAddFriend = useCallback(() => {
+    const newFriends = {
+      id: 1,
+      name: "やまっち",
+      sns: {
+        twitter: "twitter",
+        instagram: "instagram",
+        facebook: "facebook",
+      },
+    };
+    setFriends([...friends, newFriends]);
+    setIsDisabledAddFriendButton(true);
+  }, [friends]);
+
   return (
     <Container
       maxWidth="xs"
@@ -79,7 +99,11 @@ export const Matching = () => {
               src={AddFriendButton}
               style={{
                 width: "90%",
+                opacity: isDisabledAddFriendButton && 0.7,
               }}
+              onClick={
+                !isDisabledAddFriendButton ? handleClickAddFriend : () => {}
+              }
             />
           </Box>
         </Stack>
