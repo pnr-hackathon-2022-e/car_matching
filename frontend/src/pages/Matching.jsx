@@ -1,5 +1,12 @@
-import { Avatar, Box, Container, Stack, Typography } from "@mui/material";
-import { useCallback, useContext } from "react";
+import {
+  Avatar,
+  Box,
+  Button,
+  Container,
+  Stack,
+  Typography,
+} from "@mui/material";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import Cloud1 from "../assets/matching/cloud1.png";
 import Cloud2 from "../assets/matching/cloud2.png";
 import Cloud3 from "../assets/matching/cloud3.png";
@@ -10,16 +17,118 @@ import EndButton from "../assets/matching/end_button.png";
 import AddFriendButton from "../assets/matching/add_friend_button.png";
 import { userContext } from "../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
+import { friendsContext, setFriendsContext } from "../contexts/FriendsContext";
+import Peer from "skyway-js";
 
 export const Matching = () => {
   const user = useContext(userContext);
+  const friends = useContext(friendsContext);
+  const setFriends = useContext(setFriendsContext);
   const navigate = useNavigate();
+  const [isDisabledAddFriendButton, setIsDisabledAddFriendButton] =
+    useState(false);
+  const videoRef = useRef(null);
+  const theirVideoRef = useRef(null);
+  const [myId, setMyId] = useState();
+  const [theirId, setTheirId] = useState();
+  const peer = new Peer({
+    key: "ee6b9a84-7ce4-4507-afd0-73008af50e2b",
+  });
+  let localStream;
+
+  const setEventListener = (mediaConnection) => {
+    mediaConnection.on("stream", (stream) => {
+      theirVideoRef.current.srcObject = stream;
+      theirVideoRef.current.play();
+    });
+  };
+
+  useEffect(() => {
+    navigator.mediaDevices
+      .getUserMedia({ video: false, audio: true })
+      .then((stream) => {
+        videoRef.current.srcObject = stream;
+        videoRef.current.play();
+        localStream = stream;
+      })
+      .catch((error) => {
+        console.error("mediaDevice.getUserMedia() error:", error);
+        return;
+      });
+
+    peer.on("open", () => {
+      setMyId(peer.id);
+    });
+
+    peer.on("call", (mediaConnection) => {
+      mediaConnection.answer(localStream);
+      setEventListener(mediaConnection);
+    });
+  }, []);
 
   const handleClickNext = useCallback(() => {}, []);
 
   const handleClickEnd = useCallback(() => {
     navigate("/");
   }, []);
+
+  const handleClickAddFriend = useCallback(() => {
+    const newFriends = [
+      {
+        id: 1,
+        name: "ゆもっち",
+        sns: {
+          twitter: "miravy_com",
+          instagram: "instagram",
+          facebook: "facebook",
+        },
+      },
+      {
+        id: 2,
+        name: "はっしー",
+        sns: {
+          twitter: "twitter",
+          instagram: "instagram",
+          facebook: "facebook",
+        },
+      },
+      {
+        id: 3,
+        name: "もりや",
+        sns: {
+          twitter: "twitter",
+          instagram: "instagram",
+          facebook: "facebook",
+        },
+      },
+      {
+        id: 4,
+        name: "バリガ",
+        sns: {
+          twitter: "twitter",
+          instagram: "instagram",
+          facebook: "facebook",
+        },
+      },
+      {
+        id: 5,
+        name: "えりちゃん",
+        sns: {
+          twitter: "twitter",
+          instagram: "instagram",
+          facebook: "facebook",
+        },
+      },
+    ];
+    setFriends([...friends, ...newFriends]);
+    setIsDisabledAddFriendButton(true);
+  }, [friends]);
+
+  const handleClickStart = useCallback(() => {
+    const mediaConnection = peer.call(theirId ?? "", localStream);
+    setEventListener(mediaConnection);
+  }, [peer]);
+
   return (
     <Container
       maxWidth="xs"
@@ -32,6 +141,16 @@ export const Matching = () => {
         width: "100%",
       }}
     >
+      <div style={{ position: "absolute", zIndex: 10, visibility: "hidden" }}>
+        <>myId: {myId}</>
+        <br />
+        <>theirId: </>
+        <input
+          value={theirId}
+          onChange={(event) => setTheirId(event.target.value)}
+        />
+        <Button onClick={handleClickStart}>スタート</Button>
+      </div>
       <img
         src={Cloud1}
         style={{
@@ -67,11 +186,11 @@ export const Matching = () => {
           }}
         >
           <Box flex={3}>
-            <Avatar sx={{ width: 50, height: 50 }}>{user?.name[0]}</Avatar>
+            <Avatar sx={{ width: 50, height: 50 }}>え</Avatar>
           </Box>
           <Box flex={6}>
             <Typography variant="h6" color="white" fontWeight="bold">
-              {user?.name}
+              えりちゃん
             </Typography>
           </Box>
           <Box flex={3}>
@@ -79,7 +198,11 @@ export const Matching = () => {
               src={AddFriendButton}
               style={{
                 width: "90%",
+                opacity: isDisabledAddFriendButton && 0.7,
               }}
+              onClick={
+                !isDisabledAddFriendButton ? handleClickAddFriend : () => {}
+              }
             />
           </Box>
         </Stack>
@@ -91,21 +214,25 @@ export const Matching = () => {
           }}
         />
       </Stack>
-      <Stack direction="row" pt={10} spacing={2} justifyContent="center">
-        <img
-          src={NextButton}
-          style={{
-            width: "45%",
-          }}
-          onClick={handleClickNext}
-        />
-        <img
-          src={EndButton}
-          style={{
-            width: "45%",
-          }}
-          onClick={handleClickEnd}
-        />
+      <Stack direction="row" pt={10} spacing={2} justifyContent="space-evenly">
+        <Box onClick={handleClickNext} width="45%">
+          <img
+            src={NextButton}
+            style={{
+              width: "100%",
+              zIndex: 5,
+            }}
+          />
+        </Box>
+        <Box onClick={handleClickEnd} width="45%">
+          <img
+            src={EndButton}
+            style={{
+              width: "100%",
+              zIndex: 5,
+            }}
+          />
+        </Box>
       </Stack>
       <img
         src={Cloud2}
@@ -126,6 +253,25 @@ export const Matching = () => {
           left: 0,
         }}
       />
+      <div style={{ position: "absolute", bottom: 0 }}>
+        <video
+          ref={videoRef}
+          id="my-video"
+          width="1px"
+          height="1px"
+          autoPlay
+          muted
+          playsInline
+        ></video>
+        <video
+          ref={theirVideoRef}
+          id="their-video"
+          width="1px"
+          height="1px"
+          autoPlay
+          playsInline
+        ></video>
+      </div>
     </Container>
   );
 };

@@ -1,11 +1,14 @@
 import { UserProvider } from "./contexts/UserContext";
 import { Routes } from "./Routes";
 import "./App.css";
+import { FriendsProvider } from "./contexts/FriendsContext";
 
 function App() {
   return (
     <UserProvider>
-      <Routes />
+      <FriendsProvider>
+        <Routes />
+      </FriendsProvider>
     </UserProvider>
   );
 }
