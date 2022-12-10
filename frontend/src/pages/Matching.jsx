@@ -1,5 +1,12 @@
-import { Avatar, Box, Container, Stack, Typography } from "@mui/material";
-import { useCallback, useContext, useState } from "react";
+import {
+  Avatar,
+  Box,
+  Button,
+  Container,
+  Stack,
+  Typography,
+} from "@mui/material";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import Cloud1 from "../assets/matching/cloud1.png";
 import Cloud2 from "../assets/matching/cloud2.png";
 import Cloud3 from "../assets/matching/cloud3.png";
@@ -11,6 +18,7 @@ import AddFriendButton from "../assets/matching/add_friend_button.png";
 import { userContext } from "../contexts/UserContext";
 import { useNavigate } from "react-router-dom";
 import { friendsContext, setFriendsContext } from "../contexts/FriendsContext";
+import Peer from "skyway-js";
 
 export const Matching = () => {
   const user = useContext(userContext);
@@ -19,6 +27,44 @@ export const Matching = () => {
   const navigate = useNavigate();
   const [isDisabledAddFriendButton, setIsDisabledAddFriendButton] =
     useState(false);
+  const videoRef = useRef(null);
+  const theirVideoRef = useRef(null);
+  const [myId, setMyId] = useState();
+  const [theirId, setTheirId] = useState();
+  const peer = new Peer({
+    key: "ee6b9a84-7ce4-4507-afd0-73008af50e2b",
+  });
+  let localStream;
+
+  const setEventListener = (mediaConnection) => {
+    mediaConnection.on("stream", (stream) => {
+      theirVideoRef.current.srcObject = stream;
+      theirVideoRef.current.play();
+    });
+  };
+
+  useEffect(() => {
+    navigator.mediaDevices
+      .getUserMedia({ video: false, audio: true })
+      .then((stream) => {
+        videoRef.current.srcObject = stream;
+        videoRef.current.play();
+        localStream = stream;
+      })
+      .catch((error) => {
+        console.error("mediaDevice.getUserMedia() error:", error);
+        return;
+      });
+
+    peer.on("open", () => {
+      setMyId(peer.id);
+    });
+
+    peer.on("call", (mediaConnection) => {
+      mediaConnection.answer(localStream);
+      setEventListener(mediaConnection);
+    });
+  }, []);
 
   const handleClickNext = useCallback(() => {}, []);
 
@@ -40,6 +86,11 @@ export const Matching = () => {
     setIsDisabledAddFriendButton(true);
   }, [friends]);
 
+  const handleClickStart = useCallback(() => {
+    const mediaConnection = peer.call(theirId ?? "", localStream);
+    setEventListener(mediaConnection);
+  }, [peer]);
+
   return (
     <Container
       maxWidth="xs"
@@ -52,6 +103,16 @@ export const Matching = () => {
         width: "100%",
       }}
     >
+      <div style={{ position: "absolute", zIndex: 10 }}>
+        <>myId: {myId}</>
+        <br />
+        <>theirId: </>
+        <input
+          value={theirId}
+          onChange={(event) => setTheirId(event.target.value)}
+        />
+        <Button onClick={handleClickStart}>スタート</Button>
+      </div>
       <img
         src={Cloud1}
         style={{
@@ -154,6 +215,25 @@ export const Matching = () => {
           left: 0,
         }}
       />
+      <div style={{ position: "absolute", bottom: 0 }}>
+        <video
+          ref={videoRef}
+          id="my-video"
+          width="1px"
+          height="1px"
+          autoPlay
+          muted
+          playsInline
+        ></video>
+        <video
+          ref={theirVideoRef}
+          id="their-video"
+          width="1px"
+          height="1px"
+          autoPlay
+          playsInline
+        ></video>
+      </div>
     </Container>
   );
 };

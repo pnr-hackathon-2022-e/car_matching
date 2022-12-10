@@ -9,7 +9,6 @@ import EditButton from "../assets/home/edit_button.png";
 import FriendButton from "../assets/home/friend_button.png";
 import Title from "../assets/home/title.png";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import Peer from "skyway-js";
 
 export const Home = () => {
@@ -17,57 +16,57 @@ export const Home = () => {
   const [open, setOpen] = useState(false);
   const [isMatching, setIsMatching] = useState(false);
   const navigate = useNavigate();
-  const videoRef = useRef(null);
-  const theirVideoRef = useRef(null);
-  const [myId, setMyId] = useState();
-  const [theirId, setTheirId] = useState();
-  // axios.defaults.headers.common["content-type"] = "application/json";
-  const peer = new Peer({
-    key: "ee6b9a84-7ce4-4507-afd0-73008af50e2b",
-  });
-  let localStream;
+  // const videoRef = useRef(null);
+  // const theirVideoRef = useRef(null);
+  // const [myId, setMyId] = useState();
+  // const [theirId, setTheirId] = useState();
+  // // axios.defaults.headers.common["content-type"] = "application/json";
+  // const peer = new Peer({
+  //   key: "ee6b9a84-7ce4-4507-afd0-73008af50e2b",
+  // });
+  // let localStream;
 
-  const setEventListener = (mediaConnection) => {
-    mediaConnection.on("stream", (stream) => {
-      theirVideoRef.current.srcObject = stream;
-      theirVideoRef.current.play();
-    });
-  };
+  // const setEventListener = (mediaConnection) => {
+  //   mediaConnection.on("stream", (stream) => {
+  //     theirVideoRef.current.srcObject = stream;
+  //     theirVideoRef.current.play();
+  //   });
+  // };
 
-  useEffect(() => {
-    navigator.mediaDevices
-      .getUserMedia({ video: false, audio: true })
-      .then((stream) => {
-        videoRef.current.srcObject = stream;
-        videoRef.current.play();
-        localStream = stream;
-      })
-      .catch((error) => {
-        console.error("mediaDevice.getUserMedia() error:", error);
-        return;
-      });
+  // useEffect(() => {
+  //   navigator.mediaDevices
+  //     .getUserMedia({ video: false, audio: true })
+  //     .then((stream) => {
+  //       videoRef.current.srcObject = stream;
+  //       videoRef.current.play();
+  //       localStream = stream;
+  //     })
+  //     .catch((error) => {
+  //       console.error("mediaDevice.getUserMedia() error:", error);
+  //       return;
+  //     });
 
-    peer.on("open", () => {
-      setMyId(peer.id);
-    });
+  //   peer.on("open", () => {
+  //     setMyId(peer.id);
+  //   });
 
-    peer.on("call", (mediaConnection) => {
-      mediaConnection.answer(localStream);
-      setEventListener(mediaConnection);
-    });
-  }, []);
+  //   peer.on("call", (mediaConnection) => {
+  //     mediaConnection.answer(localStream);
+  //     setEventListener(mediaConnection);
+  //   });
+  // }, []);
 
-  const handleClickEditButton = useCallback(() => {
-    setOpen(!open);
-  }, [open]);
+  // const handleClickEditButton = useCallback(() => {
+  //   setOpen(!open);
+  // }, [open]);
 
   const handleClickCarButton = useCallback(async () => {
-    setIsMatching(!isMatching);
-    const mediaConnection = peer.call(
-      theirId ?? "9CubKYWBsLAMv7So",
-      localStream
-    );
-    setEventListener(mediaConnection);
+    // setIsMatching(!isMatching);
+    // const mediaConnection = peer.call(
+    //   theirId ?? "9CubKYWBsLAMv7So",
+    //   localStream
+    // );
+    // setEventListener(mediaConnection);
     // await axios
     //   .post(
     //     "http://34.125.227.230:8000/caller1/",
@@ -99,7 +98,7 @@ export const Home = () => {
     setTimeout(() => {
       navigate("/matching");
     }, 2000);
-  }, [isMatching, peer]);
+  }, [isMatching]);
 
   const handleClickFriendButton = useCallback(() => {
     navigate("/friends");
@@ -117,13 +116,13 @@ export const Home = () => {
         width: "100%",
       }}
     >
-      <>myId: {myId}</>
+      {/* <>myId: {myId}</>
       <br />
       <>theirId: </>
       <input
         value={theirId}
         onChange={(event) => setTheirId(event.target.value)}
-      />
+      /> */}
       <Box sx={{ textAlign: "center", mt: 5 }}>
         <img
           src={Title}
@@ -175,7 +174,7 @@ export const Home = () => {
         </Stack>
       </Stack>
       <UserEditModal open={open} setOpen={setOpen} />
-      <video
+      {/* <video
         ref={videoRef}
         id="my-video"
         // width="400px"
@@ -189,7 +188,7 @@ export const Home = () => {
         // width="400px"
         autoPlay
         playsinline
-      ></video>
+      ></video> */}
     </Container>
   );
 };
