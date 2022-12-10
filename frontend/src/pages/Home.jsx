@@ -4,6 +4,7 @@ import { UserEditModal } from "../components/UserEditModal";
 import { userContext } from "../contexts/UserContext";
 
 import Car from "../assets/home/car.png";
+import CarMatching from "../assets/home/car_matching.png";
 import EditButton from "../assets/home/edit_button.png";
 import FriendButton from "../assets/home/friend_button.png";
 import Title from "../assets/home/title.png";
@@ -12,15 +13,19 @@ import { useNavigate } from "react-router-dom";
 export const Home = () => {
   const user = useContext(userContext);
   const [open, setOpen] = useState(false);
+  const [isMatching, setIsMatching] = useState(false);
   const navigate = useNavigate();
 
   const handleClickEditButton = useCallback(() => {
     setOpen(!open);
   }, [open]);
 
-  const handleClickCarButton = useCallback(() => {
-    navigate("/matching");
-  });
+  const handleClickCarButton = useCallback(async () => {
+    setIsMatching(!isMatching);
+    setTimeout(() => {
+      navigate("/matching");
+    }, 2000);
+  }, [isMatching]);
 
   const handleClickFriendButton = useCallback(() => {
     navigate("/friends");
@@ -38,7 +43,7 @@ export const Home = () => {
         width: "100%",
       }}
     >
-      <Box sx={{ textAlign: "center", mt: 15 }}>
+      <Box sx={{ textAlign: "center", mt: 5 }}>
         <img
           src={Title}
           style={{
@@ -48,7 +53,7 @@ export const Home = () => {
       </Box>
       <Stack alignItems="center" sx={{ position: "fixed", bottom: 0 }}>
         <img
-          src={Car}
+          src={isMatching ? CarMatching : Car}
           style={{
             width: "80%",
             marginBottom: -7,
