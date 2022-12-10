@@ -7,19 +7,19 @@ struct Session {
     pass: String
 }
 
-#[post("/receive")]
-async fn receive(rec: web::Json<Session>) -> String {
+#[post("/caller2")]
+async fn call1(rec: web::Json<Session>) -> String {
     format!("{}", rec.pass)
 }
 
-#[post("/call")]
-async fn call(rec: web::Json<Session>) -> String {
+#[post("/caller1")]
+async fn call2(rec: web::Json<Session>) -> String {
     format!("{}", rec.pass)
 }
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    HttpServer::new(|| App::new().service(call).service(receive))
+    HttpServer::new(|| App::new().service(call2).service(call1))
         .bind("127.0.0.1:8000")?
         .run()
         .await
