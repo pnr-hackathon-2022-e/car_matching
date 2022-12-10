@@ -56,9 +56,9 @@ export const Home = () => {
   //   });
   // }, []);
 
-  // const handleClickEditButton = useCallback(() => {
-  //   setOpen(!open);
-  // }, [open]);
+  const handleClickEditButton = useCallback(() => {
+    setOpen(!open);
+  }, [open]);
 
   const handleClickCarButton = useCallback(async () => {
     // setIsMatching(!isMatching);
