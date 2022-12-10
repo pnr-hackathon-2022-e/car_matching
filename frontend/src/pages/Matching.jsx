@@ -91,21 +91,25 @@ export const Matching = () => {
           }}
         />
       </Stack>
-      <Stack direction="row" pt={10} spacing={2} justifyContent="center">
-        <img
-          src={NextButton}
-          style={{
-            width: "45%",
-          }}
-          onClick={handleClickNext}
-        />
-        <img
-          src={EndButton}
-          style={{
-            width: "45%",
-          }}
-          onClick={handleClickEnd}
-        />
+      <Stack direction="row" pt={10} spacing={2} justifyContent="space-evenly">
+        <Box onClick={handleClickNext} width="45%">
+          <img
+            src={NextButton}
+            style={{
+              width: "100%",
+              zIndex: 5,
+            }}
+          />
+        </Box>
+        <Box onClick={handleClickEnd} width="45%">
+          <img
+            src={EndButton}
+            style={{
+              width: "100%",
+              zIndex: 5,
+            }}
+          />
+        </Box>
       </Stack>
       <img
         src={Cloud2}
