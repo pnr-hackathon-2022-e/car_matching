@@ -73,16 +73,54 @@ export const Matching = () => {
   }, []);
 
   const handleClickAddFriend = useCallback(() => {
-    const newFriends = {
-      id: 1,
-      name: "やまっち",
-      sns: {
-        twitter: "twitter",
-        instagram: "instagram",
-        facebook: "facebook",
+    const newFriends = [
+      {
+        id: 1,
+        name: "ゆもっち",
+        sns: {
+          twitter: "miravy_com",
+          instagram: "instagram",
+          facebook: "facebook",
+        },
       },
-    };
-    setFriends([...friends, newFriends]);
+      {
+        id: 2,
+        name: "はっしー",
+        sns: {
+          twitter: "twitter",
+          instagram: "instagram",
+          facebook: "facebook",
+        },
+      },
+      {
+        id: 3,
+        name: "えりちゃん",
+        sns: {
+          twitter: "twitter",
+          instagram: "instagram",
+          facebook: "facebook",
+        },
+      },
+      {
+        id: 4,
+        name: "もりや",
+        sns: {
+          twitter: "twitter",
+          instagram: "instagram",
+          facebook: "facebook",
+        },
+      },
+      {
+        id: 5,
+        name: "バリガ",
+        sns: {
+          twitter: "twitter",
+          instagram: "instagram",
+          facebook: "facebook",
+        },
+      },
+    ];
+    setFriends([...friends, ...newFriends]);
     setIsDisabledAddFriendButton(true);
   }, [friends]);
 
@@ -103,7 +141,7 @@ export const Matching = () => {
         width: "100%",
       }}
     >
-      <div style={{ position: "absolute", zIndex: 10 }}>
+      <div style={{ position: "absolute", zIndex: 10, visibility: "hidden" }}>
         <>myId: {myId}</>
         <br />
         <>theirId: </>

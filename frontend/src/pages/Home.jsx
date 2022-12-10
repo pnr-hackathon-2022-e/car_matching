@@ -61,7 +61,7 @@ export const Home = () => {
   }, [open]);
 
   const handleClickCarButton = useCallback(async () => {
-    // setIsMatching(!isMatching);
+    setIsMatching(!isMatching);
     // const mediaConnection = peer.call(
     //   theirId ?? "9CubKYWBsLAMv7So",
     //   localStream
@@ -97,7 +97,7 @@ export const Home = () => {
     //   .catch((e) => console.log(e));
     setTimeout(() => {
       navigate("/matching");
-    }, 2000);
+    }, 5000);
   }, [isMatching]);
 
   const handleClickFriendButton = useCallback(() => {
