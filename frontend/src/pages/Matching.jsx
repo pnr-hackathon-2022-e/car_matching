@@ -94,15 +94,6 @@ export const Matching = () => {
       },
       {
         id: 3,
-        name: "えりちゃん",
-        sns: {
-          twitter: "twitter",
-          instagram: "instagram",
-          facebook: "facebook",
-        },
-      },
-      {
-        id: 4,
         name: "もりや",
         sns: {
           twitter: "twitter",
@@ -111,8 +102,17 @@ export const Matching = () => {
         },
       },
       {
-        id: 5,
+        id: 4,
         name: "バリガ",
+        sns: {
+          twitter: "twitter",
+          instagram: "instagram",
+          facebook: "facebook",
+        },
+      },
+      {
+        id: 5,
+        name: "えりちゃん",
         sns: {
           twitter: "twitter",
           instagram: "instagram",
@@ -186,11 +186,11 @@ export const Matching = () => {
           }}
         >
           <Box flex={3}>
-            <Avatar sx={{ width: 50, height: 50 }}>{user?.name[0]}</Avatar>
+            <Avatar sx={{ width: 50, height: 50 }}>え</Avatar>
           </Box>
           <Box flex={6}>
             <Typography variant="h6" color="white" fontWeight="bold">
-              {user?.name}
+              えりちゃん
             </Typography>
           </Box>
           <Box flex={3}>
