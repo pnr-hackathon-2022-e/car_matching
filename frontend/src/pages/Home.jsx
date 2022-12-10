@@ -22,6 +22,10 @@ export const Home = () => {
     navigate("/matching");
   });
 
+  const handleClickFriendButton = useCallback(() => {
+    navigate("/friends");
+  }, []);
+
   return (
     <Container
       maxWidth="xs"
@@ -79,6 +83,7 @@ export const Home = () => {
               style={{
                 width: "50%",
               }}
+              onClick={handleClickFriendButton}
             />
           </Stack>
         </Stack>
