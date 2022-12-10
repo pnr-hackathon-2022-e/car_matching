@@ -29,7 +29,7 @@ export const Home = () => {
         px: 0,
         position: "relative",
         overflow: "hidden",
-        bgcolor: "#2FBBDF",
+        bgcolor: "#30dcec",
         height: "100vh",
         width: "100%",
       }}
