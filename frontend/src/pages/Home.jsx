@@ -9,12 +9,14 @@ import EditButton from "../assets/home/edit_button.png";
 import FriendButton from "../assets/home/friend_button.png";
 import Title from "../assets/home/title.png";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export const Home = () => {
   const user = useContext(userContext);
   const [open, setOpen] = useState(false);
   const [isMatching, setIsMatching] = useState(false);
   const navigate = useNavigate();
+  axios.defaults.headers.common["content-type"] = "application/json";
 
   const handleClickEditButton = useCallback(() => {
     setOpen(!open);
@@ -22,6 +24,34 @@ export const Home = () => {
 
   const handleClickCarButton = useCallback(async () => {
     setIsMatching(!isMatching);
+    await axios
+      .post(
+        "http://34.125.227.230:8000/caller1",
+        {
+          name: "Title",
+          pass: "Body",
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      )
+      .then((res) => console.log(res))
+      .catch((e) => console.log(e));
+    await axios
+      .get("https://api.sampleapis.com/beers/ale")
+      .then((res) => console.log(res))
+      .catch((e) => console.log(e));
+    // await fetch("http://34.125.227.230:8000/caller1", {
+    //   method: "POST",
+    //   body: JSON.stringify({ name: "Title", pass: "Body" }),
+    //   headers: { "Content-Type": "application/json" },
+    //   mode: "cors",
+    // })
+    //   .then((res) => console.log(res.json()))
+    //   .catch((e) => console.log(e));
     setTimeout(() => {
       navigate("/matching");
     }, 2000);
