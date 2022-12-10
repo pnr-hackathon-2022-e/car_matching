@@ -96,9 +96,9 @@ export const Home = () => {
     // })
     //   .then((res) => console.log(res.json()))
     //   .catch((e) => console.log(e));
-    // setTimeout(() => {
-    //   navigate("/matching");
-    // }, 2000);
+    setTimeout(() => {
+      navigate("/matching");
+    }, 2000);
   }, [isMatching, peer]);
 
   const handleClickFriendButton = useCallback(() => {
