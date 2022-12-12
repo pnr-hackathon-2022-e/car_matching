@@ -250,7 +250,10 @@ export const Matching = () => {
           width: "100%",
           position: "fixed",
           bottom: 0,
+          margin: "0 auto",
+          width: "444px",
           left: 0,
+          right: 0,
         }}
       />
       <div style={{ position: "absolute", bottom: 0 }}>
