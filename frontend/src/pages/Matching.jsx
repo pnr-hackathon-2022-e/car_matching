@@ -251,7 +251,7 @@ export const Matching = () => {
           position: "fixed",
           bottom: 0,
           margin: "0 auto",
-          width: "444px",
+          maxWidth: "444px",
           left: 0,
           right: 0,
         }}
