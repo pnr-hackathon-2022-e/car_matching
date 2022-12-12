@@ -131,7 +131,17 @@ export const Home = () => {
           }}
         />
       </Box>
-      <Stack alignItems="center" sx={{ position: "fixed", bottom: 0 }}>
+      <Stack
+        alignItems="center"
+        sx={{
+          position: "fixed",
+          bottom: 0,
+          mx: "auto",
+          width: "444px",
+          left: 0,
+          right: 0,
+        }}
+      >
         <img
           src={isMatching ? CarMatching : Car}
           style={{
