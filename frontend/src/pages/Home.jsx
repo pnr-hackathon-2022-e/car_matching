@@ -97,12 +97,12 @@ export const Home = () => {
     //   .catch((e) => console.log(e));
     setTimeout(() => {
       navigate("/matching");
-    }, 5000);
+    }, 3000);
   }, [isMatching]);
 
   const handleClickFriendButton = useCallback(() => {
     navigate("/friends");
-  }, []);
+  }, [isMatching]);
 
   return (
     <Container
@@ -130,6 +130,11 @@ export const Home = () => {
             width: "80%",
           }}
         />
+        <Typography px={4} color="gray" variant="body2">
+          ※現在通話機能を停止しています。
+          <br />
+          マッチング後に実際に通話が開始されることはありません。
+        </Typography>
       </Box>
       <Stack
         alignItems="center"
