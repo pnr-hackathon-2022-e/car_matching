@@ -137,7 +137,7 @@ export const Home = () => {
           position: "fixed",
           bottom: 0,
           mx: "auto",
-          width: "444px",
+          maxWidth: "444px",
           left: 0,
           right: 0,
         }}
